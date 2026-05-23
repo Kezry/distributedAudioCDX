@@ -88,15 +88,30 @@ jobs:
         run: |
           choco install windowsdriverkit10 -y --no-progress
           Write-Host "WDK package installed for build validation. This job does not produce a production-signed driver."
+      - name: Check WDK headers
+        shell: pwsh
+        run: |
+          $headers = Get-ChildItem 'C:\Program Files (x86)\Windows Kits\10\Include' -Recurse -Filter ntddk.h -ErrorAction SilentlyContinue | Select-Object -First 1
+          New-Item -ItemType Directory -Force -Path windows-sender/driver/artifacts | Out-Null
+          if ($headers) {
+            "WDK_AVAILABLE=true" | Out-File -FilePath $env:GITHUB_ENV -Append
+            "Found ntddk.h at $($headers.FullName)" | Out-File windows-sender/driver/artifacts/wdk-status.txt
+          } else {
+            "WDK_AVAILABLE=false" | Out-File -FilePath $env:GITHUB_ENV -Append
+            "WDK headers were not available on this runner after installing windowsdriverkit10. Driver source is present, but build validation was skipped because ntddk.h could not be found." | Out-File windows-sender/driver/artifacts/wdk-status.txt
+          }
       - name: Locate MSBuild
+        if: env.WDK_AVAILABLE == 'true'
         uses: microsoft/setup-msbuild@v2
       - name: Build driver
+        if: env.WDK_AVAILABLE == 'true'
         working-directory: windows-sender/driver
         run: msbuild DacdxVirtualAudio.vcxproj /p:Configuration=Release /p:Platform=x64 /m
       - uses: actions/upload-artifact@v4
         with:
           name: dacdx-virtual-audio-driver-build
           path: |
+            windows-sender/driver/artifacts/**
             windows-sender/driver/**/*.sys
             windows-sender/driver/**/*.inf
             windows-sender/driver/**/*.cat

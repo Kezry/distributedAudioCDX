@@ -61,8 +61,8 @@ static void ChannelMatrixExtractsStereoRoles()
     short[] interleaved = [1, 2, 3, 4, 5, 6];
     var left = ChannelMatrix.Stereo.ExtractPcm16Interleaved(interleaved, 2, ChannelRole.FrontLeft);
     var right = ChannelMatrix.Stereo.ExtractPcm16Interleaved(interleaved, 2, ChannelRole.FrontRight);
-    Assert(left.SequenceEqual([1, 3, 5]), "Left channel extraction failed.");
-    Assert(right.SequenceEqual([2, 4, 6]), "Right channel extraction failed.");
+    Assert(left.Length == 3 && left[0] == 1 && left[1] == 3 && left[2] == 5, "Left channel extraction failed.");
+    Assert(right.Length == 3 && right[0] == 2 && right[1] == 4 && right[2] == 6, "Right channel extraction failed.");
 }
 
 static void ClockOffsetEstimate()
