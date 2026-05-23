@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Kezry/distributedAudioCDX/shared/protocol/device-announcement.schema.json",
+  "title": "distributedAudioCDX Device Announcement",
+  "type": "object",
+  "required": [
+    "type",
+    "protocol_version",
+    "device_id",
+    "alias",
+    "ip",
+    "control_port",
+    "audio_port",
+    "modes",
+    "active_mode",
+    "sample_rates",
+    "formats",
+    "channels",
+    "version"
+  ],
+  "properties": {
+    "type": { "const": "dacdx.announce" },
+    "protocol_version": { "type": "integer", "minimum": 1 },
+    "device_id": { "type": "string", "minLength": 1 },
+    "alias": { "type": "string" },
+    "ip": { "type": "string" },
+    "control_port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+    "audio_port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+    "modes": { "type": "array", "items": { "type": "string" } },
+    "active_mode": { "enum": ["sound_card", "dlna"] },
+    "sample_rates": { "type": "array", "items": { "type": "integer" } },
+    "formats": { "type": "array", "items": { "type": "string" } },
+    "channels": { "type": "array", "items": { "type": "string" } },
+    "version": { "type": "string" }
+  },
+  "additionalProperties": true
+}
+

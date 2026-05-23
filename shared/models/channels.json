@@ -1,0 +1,19 @@
+{
+  "roles": [
+    "front_left",
+    "front_right",
+    "front_center",
+    "low_frequency",
+    "rear_left",
+    "rear_right",
+    "side_left",
+    "side_right"
+  ],
+  "layouts": {
+    "2.0": ["front_left", "front_right"],
+    "2.1": ["front_left", "front_right", "low_frequency"],
+    "5.1": ["front_left", "front_right", "front_center", "low_frequency", "rear_left", "rear_right"],
+    "7.1": ["front_left", "front_right", "front_center", "low_frequency", "rear_left", "rear_right", "side_left", "side_right"]
+  }
+}
+

@@ -1,0 +1,58 @@
+# OS/editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Local secrets/signing
+*.pfx
+*.p12
+*.keystore
+*.jks
+*.cer
+*.pvk
+*.snk
+local.properties
+secrets.*
+*.user
+*.suo
+
+# Logs/temp
+*.log
+*.tmp
+*.temp
+*.bak
+
+# Android / Gradle
+.gradle/
+build/
+captures/
+*.apk
+*.aab
+android-sound-end/app/build/
+android-config-app/app/build/
+
+# .NET / Visual Studio
+bin/
+obj/
+TestResults/
+artifacts/
+packages/
+.vs/
+*.nupkg
+
+# WDK / driver build output
+*.sys
+*.inf_amd64_*
+*.cat
+*.pdb
+*.ilk
+*.tlog
+*.lastbuildstate
+windows-sender/driver/x64/
+windows-sender/driver/Win32/
+windows-sender/driver/Debug/
+windows-sender/driver/Release/
+
